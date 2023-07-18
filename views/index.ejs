@@ -50,8 +50,9 @@
           <div class="card-body">
             <h5 class="card-title">Skor KSS</h5>
             <h1>
-              <span id="score"></span>
+              <p id="score"></p>
             </h1>
+            <p id="label"></p>
           </div>
         </div>
       </div>
@@ -99,7 +100,8 @@
     // Listen for prediction updates
     socket.on('predict', (data) => {
       document.getElementById('predict').innerHTML = data.data.predict == 1 ? 'Mengantuk' : 'Siaga';
-      document.getElementById('score').innerHTML = data.data.kss;
+      document.getElementById('score').innerHTML = data.data.kss.score;
+      document.getElementById('label').innerHTML = data.data.kss.label;
     });
   </script>
 </body>

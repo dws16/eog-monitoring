@@ -6,6 +6,19 @@ const modelPath = path.join(__dirname, "../public/model/model.json");
 const RawData = require("../db/models/rawData");
 const Results = require("../db/models/results");
 
+const kssLabel = [
+  "Extremely alert",
+  "Very alert",
+  "Alert",
+  "Rather alert",
+  "Neither alert nor sleepy",
+  "Some signs of sleepiness",
+  "Sleepy, but no effort to keep awake",
+  "Sleepy, but some effort to keep awake",
+  "Very sleepy, great effort to keep awake, fighting sleep",
+  "Extremely sleepy, can't keep awake",
+];
+
 const insert = async (req, res, next) => {
   // insert data from request to database
   try {
@@ -65,7 +78,10 @@ const predict = async () => {
       status: "success",
       data: {
         predict: predicted,
-        kss: kss,
+        kss: {
+          score: kss,
+          label: kssLabel[kss - 1],
+        },
       },
     };
   } catch (err) {
